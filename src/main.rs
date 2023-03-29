@@ -1,3 +1,6 @@
+use num::complex::Complex;
+use std::ops::{Range, RangeInclusive};
+
 fn _greet_world() {
     let southern_germany = "GE";
     let chinese = "ni hao";
@@ -76,6 +79,7 @@ fn _floating_experiment() {
     println!();
     assert!(abc.0 + abc.1 == abc.2);
     assert!(xyz.0 + xyz.1 == xyz.2);
+    assert!((0.1_f64 + 0.2 - 0.3).abs() < 0.001);
 }
 
 fn _nan_experiment() {
@@ -101,6 +105,44 @@ fn _cal_experiment() {
     println!("{:.2}", forty_twos[0]);
 }
 
+fn _bitwise_experiment() {
+    // 00000010
+    let a: i32 = 2;
+    // 00000011
+    let b: i32 = 3;
+    println!("(a & b) value is {}", a & b);
+    println!("(a | b) value is {}", a | b);
+    println!("(a ^ b) value is {}", a ^ b);
+    println!("(!b) value is {}", !b);
+    println!("(a << b) value is {}", a << b);
+    println!("(a >> b) value is {}", a >> b);
+    let mut a = a;
+    a <<= b;
+    println!("(a << b) value is {}", a);
+}
+
+fn range_experiment() {
+    for i in 1..=5 {
+        println!("{}", i);
+    }
+    for i in 'a'..='z' {
+        println!("{}", i);
+    }
+    for c in 'a'..'z' {
+        println!("{}", c as u8);
+    }
+    assert_eq!((1..5), Range { start: 1, end: 5 });
+    assert_eq!((1..=5), RangeInclusive::new(1, 5));
+}
+
+fn _complex_experiment() {
+    let a = Complex { re: 2.1, im: -1.2 };
+    let b = Complex::new(11.1, 22.2);
+    let result = a + b;
+
+    println!("{} + {}i", result.re, result.im);
+}
+
 fn main() {
     // greet_world();
     // penguin_info();
@@ -110,4 +152,7 @@ fn main() {
     // floating_experiment();
     // nan_experiment();
     // cal_experiment();
+    // bitwise_experiment();
+    range_experiment();
+    // complex_experiment()
 }
