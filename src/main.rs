@@ -209,6 +209,24 @@ fn _never_return_impl3() -> ! {
     }
 }
 
+fn _stack_heap_experiment() {
+    let mut s = String::from("hello");
+    s.push_str(", world!");
+    println!("{}", s);
+}
+
+fn auto_copy() {
+    let x: &str = "hello, world";
+    let y = x;
+    println!("{},{}", x, y);
+}
+
+// fn ownership_experiment() {
+//     let s1 = String::from("hello");
+//     let s2 = s1;
+//     println!("{}, world!", s1);
+// }
+
 fn main() {
     // greet_world();
     // penguin_info();
@@ -228,4 +246,6 @@ fn main() {
     // never_return_impl1();
     // never_return_impl2();
     // get_option(2);
+    // stack_heap_experiment();
+    auto_copy();
 }
