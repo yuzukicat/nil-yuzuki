@@ -121,7 +121,7 @@ fn _bitwise_experiment() {
     println!("(a << b) value is {}", a);
 }
 
-fn range_experiment() {
+fn _range_experiment() {
     for i in 1..=5 {
         println!("{}", i);
     }
@@ -143,6 +143,72 @@ fn _complex_experiment() {
     println!("{} + {}i", result.re, result.im);
 }
 
+fn _unicode_mem_size() {
+    let x = 'z';
+    println!("The memory size for 'z' is {}", std::mem::size_of_val(&x));
+}
+
+fn _unit_type_experiment() {
+    let unit: () = ();
+    assert!(std::mem::size_of_val(&unit) == 0);
+    assert_eq!(unit, _implicitly_ret_unit());
+}
+fn _implicitly_ret_unit() {
+    println!("I will return a ()");
+}
+
+fn _statement_expression_experiment() {
+    let x = 5u32;
+    let y = {
+        let x_squared = x * x;
+        let x_cube = x_squared * x;
+        x_cube + x_squared + x
+    };
+    // let z = {
+    //     2 * x;
+    // };
+    println!("x is {:?}", x);
+    println!("y is {:?}", y);
+    // println!("z is {:?}", z);
+}
+
+fn _print() -> () {
+    println!("hello,world");
+}
+
+fn _never_return_impl1() -> ! {
+    panic!("I return nothing!")
+}
+
+fn _never_return_impl2() -> ! {
+    loop {
+        println!("I return nothing");
+        std::thread::sleep(std::time::Duration::from_secs(1))
+    }
+}
+
+fn _get_option(tp: u8) -> Option<i32> {
+    match tp {
+        1 => {
+            // TODO
+        }
+        _ => {
+            // TODO
+        }
+    };
+
+    _never_return_impl3()
+}
+
+fn _never_return_impl3() -> ! {
+    // panic!()
+    // todo!();
+    loop {
+        println!("I return nothing");
+        std::thread::sleep(std::time::Duration::from_secs(1))
+    }
+}
+
 fn main() {
     // greet_world();
     // penguin_info();
@@ -153,6 +219,13 @@ fn main() {
     // nan_experiment();
     // cal_experiment();
     // bitwise_experiment();
-    range_experiment();
+    // range_experiment();
     // complex_experiment()
+    // unicode_mem_size();
+    // unit_type_experiment();
+    // statement_expression_experiment();
+    // print();
+    // never_return_impl1();
+    // never_return_impl2();
+    // get_option(2);
 }
