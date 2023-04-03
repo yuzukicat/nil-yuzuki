@@ -215,7 +215,7 @@ fn _stack_heap_experiment() {
     println!("{}", s);
 }
 
-fn auto_copy() {
+fn _auto_copy() {
     let x: &str = "hello, world";
     let y = x;
     println!("{},{}", x, y);
@@ -226,6 +226,142 @@ fn auto_copy() {
 //     let s2 = s1;
 //     println!("{}, world!", s1);
 // }
+
+fn _deep_copy() {
+    let s1 = String::from("hello");
+    let s2 = s1.clone();
+    println!("s1 = {}, s2 = {}", s1, s2);
+}
+
+fn _takes_ownership(some_string: String) {
+    println!("{}", some_string);
+}
+fn _makes_copy(some_integer: i32) {
+    println!("{}", some_integer);
+}
+
+fn _function_parameters_ownership_experiment() {
+    let s = String::from("hello");
+    _takes_ownership(s);
+    // println!("{}", s);
+    let x = 5;
+    _makes_copy(x);
+    println!("{}", x);
+}
+
+fn _reference() {
+    let x = 5;
+    let y = &x;
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+
+fn _calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+fn _change(s: &mut String) {
+    s.push_str(", world");
+}
+
+fn _print_str(s: String) {
+    println!("{}", s)
+}
+
+fn _print_str_ref(s: &String) {
+    println!("{}", s)
+}
+
+fn _print_str_mem(s: &String) {
+    //Pointer trait
+    //    = note: the only appropriate formatting traits are:
+    // - ``, which uses the `Display` trait
+    // - `?`, which uses the `Debug` trait
+    // - `e`, which uses the `LowerExp` trait
+    // - `E`, which uses the `UpperExp` trait
+    // - `o`, which uses the `Octal` trait
+    // - `p`, which uses the `Pointer` trait
+    // - `b`, which uses the `Binary` trait
+    // - `x`, which uses the `LowerHex` trait
+    // - `X`, which uses the `UpperHex` trait
+    println!("The mem address of s is {:p}", s)
+}
+
+fn _unmutable_reference() {
+    let s1 = String::from("hello");
+    // print_str(s1);
+    _print_str_ref(&s1);
+    _print_str_mem(&s1);
+    _print_str(s1.clone());
+    let len = _calculate_length(&s1);
+    println!("The length of '{}' is {}.", s1, len);
+    let mut s = String::from("hello");
+    _change(&mut s);
+    println!("Changed to {}.", s1);
+}
+
+fn _give_ownership() -> String {
+    let s = String::from("hello, world");
+    // let _s2 = s.into_bytes();
+    let _s = s.as_bytes();
+    s
+}
+
+fn _give_ownership_experiment() {
+    let s = _give_ownership();
+    println!("{}", s);
+}
+
+fn _mutable_reference() {
+    let x = Box::new(5);
+    let mut y = Box::new(3);
+    *y = 4;
+    assert_eq!(*x, 5);
+}
+
+fn _partly_move() {
+    struct Person {
+        name: String,
+        age: Box<u8>,
+    }
+
+    let person = Person {
+        name: String::from("Alice"),
+        age: Box::new(20),
+    };
+    let Person { name, ref age } = person;
+    println!("The person`s age is {}", age);
+    println!("The person`s name is {}", name);
+    // println!("The person struct is {:?}", person);
+    println!("The person`s age from person struct is {}", person.age);
+}
+
+fn _reference_examples() {
+    let a = String::from("hello, world");
+    let b = a.clone();
+    println!("{}, {}", a, b);
+    let m = String::from("hello, world");
+    let n = m.as_str();
+    println!("{}, {}", m, n);
+    let s = &String::from("hello, world");
+    let t = s;
+    println!("{}, {}", s, t);
+    let x = "hello, world";
+    let y = x;
+    println!("{}, {}", x, y);
+}
+
+fn get_addr(r: &char) -> String {
+    format!("{:p}", r)
+}
+
+fn ref_experiment() {
+    let c = 'h';
+    let r1 = &c;
+    let ref r2 = c;
+    // eq? the string of two addr
+    assert_eq!(get_addr(r1), get_addr(r2));
+}
 
 fn main() {
     // greet_world();
@@ -247,5 +383,14 @@ fn main() {
     // never_return_impl2();
     // get_option(2);
     // stack_heap_experiment();
-    auto_copy();
+    // auto_copy();
+    // deep_copy();
+    // function_parameters_ownership_experiment();
+    // reference();
+    // unmutable_reference();
+    // give_ownership_experiment();
+    // mutable_reference;
+    // partly_move();
+    // reference_examples();
+    ref_experiment();
 }
