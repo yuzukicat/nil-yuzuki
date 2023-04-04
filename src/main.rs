@@ -351,16 +351,25 @@ fn _reference_examples() {
     println!("{}, {}", x, y);
 }
 
-fn get_addr(r: &char) -> String {
+fn _get_addr(r: &char) -> String {
     format!("{:p}", r)
 }
 
-fn ref_experiment() {
+fn _ref_experiment() {
     let c = 'h';
     let r1 = &c;
     let ref r2 = c;
     // eq? the string of two addr
-    assert_eq!(get_addr(r1), get_addr(r2));
+    assert_eq!(_get_addr(r1), _get_addr(r2));
+}
+
+fn _for_string() {
+    for c in "Hello".chars() {
+        println!("{}", c);
+    }
+    for b in "Hello".bytes() {
+        println!("{}", b);
+    }
 }
 
 fn main() {
@@ -392,5 +401,6 @@ fn main() {
     // mutable_reference;
     // partly_move();
     // reference_examples();
-    ref_experiment();
+    // ref_experiment();
+    // for_string();
 }
